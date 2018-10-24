@@ -28,7 +28,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -62,7 +62,7 @@ public class WorkerServerController extends BWorker {
     public void run() {
         if (Config.SERVER_DISABLE_NIGHT.getAsBoolean()) {
             Bukkit.getWorlds().stream()
-                    .filter(this::isExcludedWorld)
+                    .filter(world -> !isExcludedWorld(world))
                     .forEach(world -> world.setTime(0));
         }
     }
@@ -99,7 +99,7 @@ public class WorkerServerController extends BWorker {
     }
 
     @EventHandler
-    public void onPlayerDamage(EntityDamageByEntityEvent event) {
+    public void onPlayerDamage(EntityDamageEvent event) {
         event.setCancelled(event.getEntityType() == EntityType.PLAYER
                 && isApplicable(Config.SERVER_DISABLE_DAMAGE, (Player) event.getEntity()));
     }
@@ -170,6 +170,6 @@ public class WorkerServerController extends BWorker {
     }
 
     private boolean isApplicable(Config setting, Player player) {
-        return isApplicable(setting, player.getWorld()) && player.hasPermission(Permissions.BYPASS);
+        return isApplicable(setting, player.getWorld()) && !player.hasPermission(Permissions.BYPASS);
     }
 }
