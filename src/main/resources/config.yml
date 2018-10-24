@@ -1,0 +1,67 @@
+# BLobby by Bradley Steele (Ibiza).
+#
+# /Contact
+# Spigot: https://www.spigotmc.org/members/292138/
+# Discord: Bradley#4169
+# Discord Support Server: https://redirect.bradleysteele.me/bps
+
+
+# Do not change this number. You will be notified if a new
+# configuration version is available.
+config-version: 1
+
+
+server:
+
+  # List of world names which you do NOT want the following
+  # settings to be applied to.
+  excluded-worlds:
+  - build_world
+
+
+  # Prevents entities from spawning, apart form those spawned
+  # by other plugins.
+  disable-entity-spawn: true
+
+  # Resets the time to 0 every 10 minutes.
+  disable-night: true
+
+  # Prevents rain and storms.
+  disable-weather: true
+
+  # Prevents hunger loss.
+  disable-hunger: true
+
+  # Prevents all damage from being received by players.
+  disable-damage: true
+
+
+  # Note: The following are ignored with the permission
+  # node: blobby.bypass
+
+  # Prevents blocks being broken.
+  disable-block-break: true
+
+  # Prevents blocks being placed.
+  disable-block-place: true
+
+  # Prevents ground items from being picked up.
+  disable-pickup: true
+
+  # Prevents players from dropping items.
+  disable-drop: true
+
+
+
+spawn:
+
+  # The gamemode players will spawn in, will fallback to
+  # survival if the provided gamemode is invalid.
+  gamemode: ADVENTURE
+
+  # Players will be teleported to the spawn location if
+  # they take damage from the void.
+  on-void: true
+
+  # Enables the /spawn command for all players.
+  command: true
