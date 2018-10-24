@@ -125,14 +125,6 @@ public class WorkerServerController extends BWorker {
         event.setCancelled(isApplicable(Config.SERVER_DISABLE_DROP, event.getPlayer()));
     }
 
-    private boolean isApplicable(Config setting, World world) {
-        return setting.getAsBoolean() && isExcludedWorld(world);
-    }
-
-    private boolean isApplicable(Config setting, Player player) {
-        return isApplicable(setting, player.getWorld()) && player.hasPermission(Permissions.BYPASS);
-    }
-
     /**
      * An excluded {@link World} is a world which settings from
      * the {@link Config} will not be applied to.
@@ -171,5 +163,13 @@ public class WorkerServerController extends BWorker {
      */
     public void removeExcludedWorld(World world) {
         excluded.remove(world);
+    }
+
+    private boolean isApplicable(Config setting, World world) {
+        return setting.getAsBoolean() && !isExcludedWorld(world);
+    }
+
+    private boolean isApplicable(Config setting, Player player) {
+        return isApplicable(setting, player.getWorld()) && player.hasPermission(Permissions.BYPASS);
     }
 }
