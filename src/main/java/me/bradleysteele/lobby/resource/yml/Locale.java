@@ -33,11 +33,15 @@ import java.util.stream.Stream;
  */
 public enum Locale {
 
-    PREFIX("prefix", "&7[&6TimedRewards&7]"),
+    PREFIX("prefix", "&7[&6BLobby&7]"),
 
     CMD_NO_PERM("command.no-permission", "{prefix} &7You do not have permission for that command."),
     CMD_UNKNOWN("command.unknown", "{prefix} &7Unknown command! Type &e/trs help &7for a list of commands."),
     CMD_INVALID("command.invalid", "{prefix} &7Invalid usage, use &e/{args}&7."),
+
+    CONFIG_CHANGE_AVAILABLE("config-change-available", "{prefix} &7A config change is available. Current: &c{current} &7New: &a{new}&7."),
+
+    CHAT_DISABLED("chat-disabled", "{prefix} &7Chat is disabled.")
 
     ;
 

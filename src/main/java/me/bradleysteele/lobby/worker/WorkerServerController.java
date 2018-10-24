@@ -18,8 +18,11 @@ package me.bradleysteele.lobby.worker;
 
 import com.google.common.collect.Sets;
 import me.bradleysteele.commons.register.worker.BWorker;
+import me.bradleysteele.commons.util.Players;
 import me.bradleysteele.lobby.resource.yml.Config;
+import me.bradleysteele.lobby.resource.yml.Locale;
 import me.bradleysteele.lobby.util.Permissions;
+import me.bradleysteele.lobby.worker.hook.plugins.HookVault;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
@@ -30,6 +33,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -52,10 +56,13 @@ public class WorkerServerController extends BWorker {
     }
 
     private final Set<World> excluded = Sets.newHashSet();
+    private HookVault vault;
 
     private WorkerServerController() {
         this.setPeriod(6000L);
         this.setSync(false);
+
+        vault = new HookVault();
     }
 
     @Override
@@ -73,6 +80,13 @@ public class WorkerServerController extends BWorker {
                 .map(Bukkit::getWorld)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet()));
+
+        vault.hook();
+
+        if (vault.isHooked()) {
+            plugin.getConsole().info(String.format("Successfully hooked &aVault &7(version: &e%s&7).",
+                    vault.getPlugin().getDescription().getVersion()));
+        }
     }
 
     @Override
@@ -113,22 +127,43 @@ public class WorkerServerController extends BWorker {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        event.setCancelled(isApplicable(Config.SERVER_DISABLE_BLOCK_BREAK, event.getPlayer()));
+        event.setCancelled(isApplicableWithBypass(Config.SERVER_DISABLE_BLOCK_BREAK, event.getPlayer()));
     }
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        event.setCancelled(isApplicable(Config.SERVER_DISABLE_BLOCK_PLACE, event.getPlayer()));
+        event.setCancelled(isApplicableWithBypass(Config.SERVER_DISABLE_BLOCK_PLACE, event.getPlayer()));
     }
 
     @EventHandler
     public void onPlayerPickupItem(PlayerPickupItemEvent event) {
-        event.setCancelled(isApplicable(Config.SERVER_DISABLE_PICKUP, event.getPlayer()));
+        event.setCancelled(isApplicableWithBypass(Config.SERVER_DISABLE_PICKUP, event.getPlayer()));
     }
 
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent event) {
-        event.setCancelled(isApplicable(Config.SERVER_DISABLE_DROP, event.getPlayer()));
+        event.setCancelled(isApplicableWithBypass(Config.SERVER_DISABLE_DROP, event.getPlayer()));
+    }
+
+    @EventHandler
+    public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
+        if (Config.SERVER_CHAT_HANDLE.getAsBoolean()) {
+            event.setCancelled(true);
+            Player player = event.getPlayer();
+
+            if (isApplicableWithBypass(Config.SERVER_CHAT_DISABLE, event.getPlayer())) {
+                Players.sendMessage(player, Locale.CHAT_DISABLED.getMessage());
+                return;
+            }
+
+            if (vault.isHooked()) {
+                Players.sendMessage(Players.getOnlinePlayers(), vault.format(event));
+            } else {
+                Players.sendMessage(Players.getOnlinePlayers(), Config.SERVER_CHAT_FORMAT_DEFAULT.getAsString()
+                        .replace("{name}", player.getName())
+                        .replace("{message}", event.getMessage()));
+            }
+        }
     }
 
     /**
@@ -147,6 +182,13 @@ public class WorkerServerController extends BWorker {
      */
     public boolean isExcludedWorld(World world) {
         return excluded.contains(world);
+    }
+
+    /**
+     * @return the vault hook.
+     */
+    public HookVault getVaultHook() {
+        return vault;
     }
 
     /**
@@ -176,6 +218,10 @@ public class WorkerServerController extends BWorker {
     }
 
     private boolean isApplicable(Config setting, Player player) {
-        return isApplicable(setting, player.getWorld()) && !player.hasPermission(Permissions.BYPASS);
+        return isApplicable(setting, player.getWorld());
+    }
+
+    private boolean isApplicableWithBypass(Config setting, Player player) {
+        return isApplicable(setting, player) && !player.hasPermission(Permissions.BYPASS);
     }
 }

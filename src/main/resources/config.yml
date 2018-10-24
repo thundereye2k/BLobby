@@ -51,6 +51,26 @@ server:
   # Prevents players from dropping items.
   disable-drop: true
 
+  chat:
+
+    # If the chat should be handled by BLobby.
+    handle: true
+
+    # Prevents players from talking in chat.
+    disable: false
+
+    format:
+
+      # The fallback format and format used if Vault is
+      # not  a present plugin.
+      default: '{name}&f: {message}'
+
+      # The formats for individual groups, requires Vault.
+      # Note: groups are case-sensitive.
+      groups:
+        owner: '{prefix}{name}&f: &c{message}'
+        default: '{prefix}{name}&f: &7{message}'
+
 
 join:
 

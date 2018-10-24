@@ -17,10 +17,10 @@
 package me.bradleysteele.lobby.resource.yml;
 
 import com.google.common.collect.Lists;
+import me.bradleysteele.commons.resource.ResourceSection;
 import me.bradleysteele.commons.resource.type.ResourceYaml;
 import me.bradleysteele.lobby.resource.ResourceType;
 import me.bradleysteele.lobby.resource.Resources;
-import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,6 +43,10 @@ public enum Config {
     SERVER_DISABLE_BLOCK_PLACE("server.disable-block-place", true),
     SERVER_DISABLE_PICKUP("server.disable-pickup", true),
     SERVER_DISABLE_DROP("server.disable-drop", true),
+    SERVER_CHAT_HANDLE("server.chat.handle", true),
+    SERVER_CHAT_DISABLE("server.chat.disable", false),
+    SERVER_CHAT_FORMAT_DEFAULT("server.chat.format.default", "{name}&f: {message}"),
+    SERVER_CHAT_FORMAT_GROUPS("server.chat.format.groups", ""),
 
     JOIN_MOTD("join.motd", Collections.emptyList()),
     JOIN_SPAWN("join.spawn", true),
@@ -134,9 +138,9 @@ public enum Config {
     }
 
     /**
-     * @return value of the path as a configuration section.
+     * @return value of the path as a resource section.
      */
-    public ConfigurationSection getAsConfigurationSection() {
-        return getConfig().getConfigurationSection(path);
+    public ResourceSection getAsResourceSection() {
+        return getConfig().getSection(path);
     }
 }
