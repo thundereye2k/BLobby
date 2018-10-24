@@ -107,7 +107,6 @@ public class WorkerServerController extends BWorker {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         event.setCancelled(isApplicable(Config.SERVER_DISABLE_BLOCK_BREAK, event.getPlayer()));
-
     }
 
     @EventHandler
