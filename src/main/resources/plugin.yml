@@ -4,4 +4,5 @@ description: ${project.description}
 version: ${project.version}
 main: me.bradleysteele.lobby.BLobby
 depend: [BCommons]
+softdepend: [Vault]
 api-version: 1.13
