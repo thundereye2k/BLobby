@@ -67,7 +67,7 @@ public class WorkerLocations extends BWorker {
         player.setGameMode(GameMode.ADVENTURE);
         player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
         player.setFireTicks(0);
-        player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+        player.setHealth(player.getMaxHealth());
         player.setSaturation(0f);
         player.setFoodLevel(20);
         player.setMaximumNoDamageTicks(19);
