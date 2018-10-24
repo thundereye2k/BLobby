@@ -18,6 +18,7 @@ package me.bradleysteele.lobby;
 
 import me.bradleysteele.commons.BPlugin;
 import me.bradleysteele.lobby.resource.Resources;
+import me.bradleysteele.lobby.worker.WorkerLobby;
 import me.bradleysteele.lobby.worker.WorkerLocations;
 import me.bradleysteele.lobby.worker.WorkerServerController;
 
@@ -32,7 +33,8 @@ public class BLobby extends BPlugin {
                 Resources.class,
 
                 WorkerLocations.class,
-                WorkerServerController.class
+                WorkerServerController.class,
+                WorkerLobby.class
         );
     }
 }
