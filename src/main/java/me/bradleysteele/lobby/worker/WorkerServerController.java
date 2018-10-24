@@ -100,8 +100,15 @@ public class WorkerServerController extends BWorker {
 
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent event) {
-        event.setCancelled(event.getEntityType() == EntityType.PLAYER
-                && isApplicable(Config.SERVER_DISABLE_DAMAGE, (Player) event.getEntity()));
+        if (event.getEntityType() == EntityType.PLAYER) {
+            Player player = (Player) event.getEntity();
+
+            if (Config.SPAWN_ON_VOID.getAsBoolean() && event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+                WorkerLocations.get().spawnify(player);
+            }
+
+            event.setCancelled(isApplicable(Config.SERVER_DISABLE_DAMAGE, player));
+        }
     }
 
     @EventHandler
