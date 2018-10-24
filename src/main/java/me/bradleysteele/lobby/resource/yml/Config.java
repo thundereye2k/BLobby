@@ -44,6 +44,9 @@ public enum Config {
     SERVER_DISABLE_PICKUP("server.disable-pickup", true),
     SERVER_DISABLE_DROP("server.disable-drop", true),
 
+    JOIN_MOTD("join.motd", Collections.emptyList()),
+    JOIN_SPAWN("join.spawn", true),
+
     SPAWN_GAMEMODE("spawn.gamemode", "ADVENTURE"),
     SPAWN_ON_VOID("spawn.on-void", true),
     SPAWN_COMMAND("spawn.command", true);
