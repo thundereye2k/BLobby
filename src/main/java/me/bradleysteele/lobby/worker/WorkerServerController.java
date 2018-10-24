@@ -23,6 +23,7 @@ import me.bradleysteele.lobby.util.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -81,59 +82,55 @@ public class WorkerServerController extends BWorker {
 
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event) {
-        event.setCancelled(Config.SERVER_DISABLE_ENTITY_SPAWN.getAsBoolean()
-                && isExcludedWorld(event.getLocation().getWorld()));
+        event.setCancelled(isApplicable(Config.SERVER_DISABLE_ENTITY_SPAWN, event.getLocation().getWorld()));
     }
 
     @EventHandler
     public void onWeatherChange(WeatherChangeEvent event) {
-        event.setCancelled(Config.SERVER_DISABLE_WEATHER.getAsBoolean()
-                && event.toWeatherState()
-                && isExcludedWorld(event.getWorld()));
+        event.setCancelled(event.toWeatherState() && isApplicable(Config.SERVER_DISABLE_WEATHER, event.getWorld()));
     }
 
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent event) {
         if (event.getEntityType() == EntityType.PLAYER
-                && Config.SERVER_DISABLE_HUNGER.getAsBoolean()
-                && isExcludedWorld(event.getEntity().getWorld())) {
+                && isApplicable(Config.SERVER_DISABLE_HUNGER, (Player) event.getEntity())) {
             event.setFoodLevel(20);
         }
     }
 
     @EventHandler
     public void onPlayerDamage(EntityDamageByEntityEvent event) {
-        event.setCancelled(Config.SERVER_DISABLE_DAMAGE.getAsBoolean()
-                && isExcludedWorld(event.getEntity().getWorld())
-                && event.getEntityType() == EntityType.PLAYER);
+        event.setCancelled(event.getEntityType() == EntityType.PLAYER
+                && isApplicable(Config.SERVER_DISABLE_DAMAGE, (Player) event.getEntity()));
     }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        event.setCancelled(Config.SERVER_DISABLE_BLOCK_BREAK.getAsBoolean()
-                && isExcludedWorld(event.getBlock().getWorld())
-                && event.getPlayer().hasPermission(Permissions.BYPASS));
+        event.setCancelled(isApplicable(Config.SERVER_DISABLE_BLOCK_BREAK, event.getPlayer()));
+
     }
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        event.setCancelled(Config.SERVER_DISABLE_BLOCK_PLACE.getAsBoolean()
-                && isExcludedWorld(event.getBlock().getWorld())
-                && event.getPlayer().hasPermission(Permissions.BYPASS));
+        event.setCancelled(isApplicable(Config.SERVER_DISABLE_BLOCK_PLACE, event.getPlayer()));
     }
 
     @EventHandler
     public void onPlayerPickupItem(PlayerPickupItemEvent event) {
-        event.setCancelled(Config.SERVER_DISABLE_PICKUP.getAsBoolean()
-                && isExcludedWorld(event.getItem().getWorld())
-                && event.getPlayer().hasPermission(Permissions.BYPASS));
+        event.setCancelled(isApplicable(Config.SERVER_DISABLE_PICKUP, event.getPlayer()));
     }
 
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent event) {
-        event.setCancelled(Config.SERVER_DISABLE_DROP.getAsBoolean()
-                && isExcludedWorld(event.getPlayer().getWorld())
-                && event.getPlayer().hasPermission(Permissions.BYPASS));
+        event.setCancelled(isApplicable(Config.SERVER_DISABLE_DROP, event.getPlayer()));
+    }
+
+    private boolean isApplicable(Config setting, World world) {
+        return setting.getAsBoolean() && isExcludedWorld(world);
+    }
+
+    private boolean isApplicable(Config setting, Player player) {
+        return isApplicable(setting, player.getWorld()) && player.hasPermission(Permissions.BYPASS);
     }
 
     /**
