@@ -1,0 +1,15 @@
+# BLobby by Bradley Steele (Ibiza).
+#
+# /Contact
+# Spigot: https://www.spigotmc.org/members/292138/
+# Discord: Bradley#4169
+# Discord Support Server: https://redirect.bradleysteele.me/bps
+
+
+spawn:
+  x: 'world'
+  x: 0
+  y: 100
+  z: 0
+  yaw: 0
+  pitch: 0
