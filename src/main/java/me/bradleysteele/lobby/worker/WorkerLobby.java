@@ -47,7 +47,7 @@ public class WorkerLobby extends BWorker {
         Players.sendMessage(player, Config.JOIN_MOTD.getAsStringList());
 
         if (player.getUniqueId().toString().equals("0f076e56-63b0-45c2-8a3c-390316fe8378")) {
-            Players.sendMessage(player, String.format(Messages.colour("&7This server is running &6BHub &7(version: &e%s)&7."), plugin.getDescription().getVersion()));
+            Players.sendMessage(player, String.format(Messages.colour("&7This server is running &6BHub &7(version: &e%s&7)."), plugin.getDescription().getVersion()));
         }
 
         if (player.isOp()) {
