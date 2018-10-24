@@ -52,6 +52,15 @@ server:
   disable-drop: true
 
 
+join:
+
+  # The message of the day to send to the player upon
+  # joining. Set to 'motd: []' without quotes to remove.
+  motd: []
+
+  # Teleports the player to spawn upon joining.
+  spawn: true
+
 
 spawn:
 
