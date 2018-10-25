@@ -24,6 +24,7 @@ import me.bradleysteele.lobby.resource.yml.Locale;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
  * @author Bradley Steele
@@ -65,5 +66,14 @@ public class WorkerLobby extends BWorker {
                 Players.sendMessage(player, Locale.CONFIG_CHANGE_AVAILABLE.getMessage("{current}", current, "{new}", latest));
             }
         }
+
+        event.setJoinMessage(Messages.colour(Config.JOIN_MESSAGE.getAsString()
+                .replace("{player}", player.getName())));
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        event.setQuitMessage(Messages.colour(Config.QUIT_MESSAGE.getAsString()
+                .replace("{player}", event.getPlayer().getName())));
     }
 }

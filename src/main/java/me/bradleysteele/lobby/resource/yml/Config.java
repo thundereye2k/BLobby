@@ -48,8 +48,11 @@ public enum Config {
     SERVER_CHAT_FORMAT_DEFAULT("server.chat.format.default", "{name}&f: {message}"),
     SERVER_CHAT_FORMAT_GROUPS("server.chat.format.groups", ""),
 
+    JOIN_MESSAGE("join.message", ""),
     JOIN_MOTD("join.motd", Collections.emptyList()),
     JOIN_SPAWN("join.spawn", true),
+
+    QUIT_MESSAGE("quit.message", ""),
 
     SPAWN_GAMEMODE("spawn.gamemode", "ADVENTURE"),
     SPAWN_ON_VOID("spawn.on-void", true),
