@@ -19,7 +19,7 @@ package me.bradleysteele.lobby.worker.hook.plugins;
 import com.google.common.collect.Maps;
 import me.bradleysteele.commons.resource.ResourceSection;
 import me.bradleysteele.lobby.resource.yml.Config;
-import me.bradleysteele.lobby.worker.hook.AbstractHookVault;
+import me.bradleysteele.lobby.worker.hook.AbstractHook;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 /**
  * @author Bradley Steele
  */
-public class HookVault extends AbstractHookVault {
+public class HookVault extends AbstractHook {
 
     private final Map<String, String> formats = Maps.newHashMap();
 

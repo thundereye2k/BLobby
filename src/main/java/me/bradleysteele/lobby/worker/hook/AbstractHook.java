@@ -19,7 +19,7 @@ package me.bradleysteele.lobby.worker.hook;
 /**
  * @author Bradley Steele
  */
-public abstract class AbstractHookVault implements PluginHook {
+public abstract class AbstractHook implements PluginHook {
 
     protected boolean hooked;
 
