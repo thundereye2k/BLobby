@@ -76,7 +76,16 @@ join:
 
   # The message of the day to send to the player upon
   # joining. Set to 'motd: []' without quotes to remove.
-  motd: []
+  motd:
+  - '&8&m-------------------------------------------'
+  - '&6BLobby'
+  - '&7www.bradleysteele.me'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&8&m-------------------------------------------'
 
   # Teleports the player to spawn upon joining.
   spawn: true
@@ -91,6 +100,9 @@ spawn:
   # Players will be teleported to the spawn location if
   # they take damage from the void.
   on-void: true
+
+  # Teleports all players to spawn when the plugin is enabled.
+  on-enable: true
 
   # Enables the /spawn command for all players.
   command: true

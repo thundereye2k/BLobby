@@ -53,6 +53,7 @@ public enum Config {
 
     SPAWN_GAMEMODE("spawn.gamemode", "ADVENTURE"),
     SPAWN_ON_VOID("spawn.on-void", true),
+    SPAWN_ON_ENABLE("spawn.on-enable", true),
     SPAWN_COMMAND("spawn.command", true);
 
     public static ResourceYaml getConfig() {

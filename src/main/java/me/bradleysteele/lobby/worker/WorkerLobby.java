@@ -36,6 +36,13 @@ public class WorkerLobby extends BWorker {
         return instance;
     }
 
+    @Override
+    public void onRegister() {
+        if (Config.SPAWN_ON_ENABLE.getAsBoolean()) {
+            Players.getOnlinePlayers().forEach(player -> WorkerLocations.get().spawnify(player));
+        }
+    }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
