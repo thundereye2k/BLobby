@@ -119,3 +119,26 @@ spawn:
 
   # Enables the /spawn command for all players.
   command: true
+
+
+sidebar:
+
+  # If the sidebar is enabled.
+  enabled: true
+
+  # The title of the sidebar.
+  title: '&6BLobby'
+
+  # Text for each line of the sidebar. Each line is limited
+  # to 32 characters, including colours. With a maximum of
+  # 16 lines.
+  content:
+  - '&8&m----------------------------'
+  - '&6BLobby'
+  - ''
+  - '&7Welcome &e{player}&7, enjoy'
+  - '&7your stay!'
+  - ''
+  - ''
+  - '&8&m----------------------------'
+  - '&7www.bradleysteele.me'

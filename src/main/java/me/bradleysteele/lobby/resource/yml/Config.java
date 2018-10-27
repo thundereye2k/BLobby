@@ -57,7 +57,12 @@ public enum Config {
     SPAWN_GAMEMODE("spawn.gamemode", "ADVENTURE"),
     SPAWN_ON_VOID("spawn.on-void", true),
     SPAWN_ON_ENABLE("spawn.on-enable", true),
-    SPAWN_COMMAND("spawn.command", true);
+    SPAWN_COMMAND("spawn.command", true),
+
+    SIDEBAR_ENABLED("sidebar.enabled", true),
+    SIDEBAR_TITLE("sidebar.title", "&6Lobby"),
+    SIDEBAR_CONTENT("sidebar.content", Collections.emptyList()),
+    ;
 
     public static ResourceYaml getConfig() {
         return (ResourceYaml) Resources.get().getResource(ResourceType.CONFIG);
