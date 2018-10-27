@@ -21,6 +21,7 @@ import me.bradleysteele.lobby.resource.Resources;
 import me.bradleysteele.lobby.worker.WorkerLobby;
 import me.bradleysteele.lobby.worker.WorkerLocations;
 import me.bradleysteele.lobby.worker.WorkerServerController;
+import me.bradleysteele.lobby.worker.WorkerSidebar;
 
 /**
  * @author Bradley Steele
@@ -34,7 +35,8 @@ public class BLobby extends BPlugin {
 
                 WorkerLocations.class,
                 WorkerServerController.class,
-                WorkerLobby.class
+                WorkerLobby.class,
+                WorkerSidebar.class
         );
     }
 }
