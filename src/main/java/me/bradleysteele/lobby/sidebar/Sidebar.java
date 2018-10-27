@@ -28,7 +28,7 @@ public class Sidebar extends AbstractViewable<PlayerSidebar> {
     private String title;
 
     public Sidebar(String title) {
-        this.title = title;
+        setTitle(title);
     }
 
     @Override
