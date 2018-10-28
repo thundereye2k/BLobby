@@ -16,6 +16,7 @@
 
 package me.bradleysteele.lobby.util;
 
+import me.bradleysteele.commons.itemstack.ItemStackBuilder;
 import me.bradleysteele.commons.itemstack.ItemStacks;
 import me.bradleysteele.commons.resource.ResourceSection;
 import me.bradleysteele.lobby.inventory.ItemType;
@@ -27,14 +28,20 @@ import org.bukkit.inventory.ItemStack;
  */
 public class Items {
 
-    public final static String NBT_KEY = "blobby_item_type";
+    public final static String NBT_KEY_TYPE = "blobby_item_type";
+    public final static String NBT_KEY_SERVER = "blobby_server";
 
     private Items() {}
 
     public static ItemStack loadStack(ResourceSection section) {
+        ItemStackBuilder builder = loadBuilder(section);
+        return builder != null ? builder.build() : null;
+    }
+
+    public static ItemStackBuilder loadBuilder(ResourceSection section) {
         Material material = Material.matchMaterial(section.getString("material", "AIR"));
 
-        if (material == Material.AIR) {
+        if (material == null || material == Material.AIR) {
             return null;
         }
 
@@ -45,7 +52,6 @@ public class Items {
                 .withAmount(amount < 1 ? 1 : amount > 64 ? 64 : amount)
                 .withDisplayNameColoured(section.getString("name"))
                 .withLoreColoured(section.getStringList("lore"))
-                .withNBTString(NBT_KEY, ItemType.of(section.getString("type", "DEFAULT")).name())
-                .build();
+                .withNBTString(NBT_KEY_TYPE, ItemType.of(section.getString("type", "DEFAULT")).name());
     }
 }
