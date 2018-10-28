@@ -6,7 +6,7 @@
 
     <groupId>me.bradleysteele</groupId>
     <artifactId>BLobby</artifactId>
-    <version>0.0.1-INDEV</version>
+    <version>1.0.0-RELEASE</version>
 
     <url>https://bradleysteele.me</url>
     <description>Lightweight &amp; feature-rich lobby plugin.</description>
