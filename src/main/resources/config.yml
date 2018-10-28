@@ -78,16 +78,18 @@ server:
         default: '{prefix}{name}&f: &7{message}'
 
 
+# The items to be set when players are sent to spawn.
+# Item types: SERVER_SELECTOR
 items:
+  my_cool_item:
+    slot: 0
+    material: EMERALD
+    name: '&6Website: &7www.bradleysteele.me'
   selector:
     type: SERVER_SELECTOR
     slot: 4
     material: COMPASS
     name: '&6Server Selector &7(Right-Click)'
-  my_cool_item:
-    slot: 0
-    material: EMERALD
-    name: '&6Website: &7www.bradleysteele.me'
 
 
 join:
