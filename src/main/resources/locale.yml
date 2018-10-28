@@ -1,0 +1,15 @@
+# BLobby by Bradley Steele (Ibiza).
+#
+# /Contact
+# Spigot: https://www.spigotmc.org/members/292138/
+# Discord: Bradley#4169
+# Discord Support Server: https://redirect.bradleysteele.me/bps
+
+
+# Use {prefix} in any of the messages and it will
+# be replaced with the below.
+prefix: '&7[&6BLobby&7]'
+
+config-change-available: '{prefix} &7A config change is available. Current: &c{current} &7New: &a{new}&7.'
+
+chat-disabled: '{prefix} &7Chat is disabled.'
