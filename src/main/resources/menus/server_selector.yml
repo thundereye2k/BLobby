@@ -35,7 +35,7 @@ menu:
     skyblock:
       slot: 14
       item:
-        material: GRASS_BLOCK
+        material: GRASS
         name: '&aSkyblock'
         lore:
         - '&7Click to join our &eskyblock &7server.'
