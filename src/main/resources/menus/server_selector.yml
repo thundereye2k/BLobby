@@ -1,0 +1,42 @@
+# BLobby by Bradley Steele (Ibiza).
+#
+# /Contact
+# Spigot: https://www.spigotmc.org/members/292138/
+# Discord: Bradley#4169
+# Discord Support Server: https://redirect.bradleysteele.me/bps
+
+
+menu:
+  title: 'Server Selector'
+  size: 27
+  items:
+    # The item key, must be unique.
+    factions:
+      # Slot that the item will appear in the server selector inventory.
+      # Note: slots start at 0
+      slot: 12
+      item:
+        # The amount of the item.
+        amount: 1
+        # The item type, materials can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+        # Note: material types will vary depending on version.
+        material: DIAMOND_CHESTPLATE
+        # The amount of damage the item has, this is also used for certain items such as
+        # potions, stained glass, wool, etc. For example, use 'damage: 13' for red wool,
+        # and make sure the material (above) is wool.
+        damage: 0
+        # The display name of the item, uses & for colours.
+        name: '&aFactions'
+        # The lore of the item, can add as many lines as you want.
+        lore:
+        - '&7Click to join our &efactions &7server.'
+      # The server name to be connected to upon clicking.
+      server: factions
+    skyblock:
+      slot: 14
+      item:
+        material: GRASS_BLOCK
+        name: '&aSkyblock'
+        lore:
+        - '&7Click to join our &eskyblock &7server.'
+      server: skyblock
