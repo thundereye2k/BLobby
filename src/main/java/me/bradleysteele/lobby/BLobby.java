@@ -28,8 +28,20 @@ import me.bradleysteele.lobby.worker.WorkerSidebar;
  */
 public class BLobby extends BPlugin {
 
+    private static BLobby instance;
+
+    public static BLobby getInstance() {
+        return instance;
+    }
+
+    public BLobby() {
+        instance = this;
+    }
+
     @Override
     public void enable() {
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+
         this.register(
                 Resources.class,
 
