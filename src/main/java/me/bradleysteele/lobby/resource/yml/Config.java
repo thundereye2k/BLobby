@@ -43,10 +43,14 @@ public enum Config {
     SERVER_DISABLE_BLOCK_PLACE("server.disable-block-place", true),
     SERVER_DISABLE_PICKUP("server.disable-pickup", true),
     SERVER_DISABLE_DROP("server.disable-drop", true),
+    SERVER_DISABLE_INTERACT("server.disable-interact", true),
+    SERVER_DISABLE_INVENTORY_CLICK("server.disable-inventory-click", true),
     SERVER_CHAT_HANDLE("server.chat.handle", true),
     SERVER_CHAT_DISABLE("server.chat.disable", false),
     SERVER_CHAT_FORMAT_DEFAULT("server.chat.format.default", "{name}&f: {message}"),
     SERVER_CHAT_FORMAT_GROUPS("server.chat.format.groups", ""),
+
+    ITEMS("items", ""),
 
     JOIN_MESSAGE("join.message", ""),
     JOIN_MOTD("join.motd", Collections.emptyList()),

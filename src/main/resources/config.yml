@@ -51,6 +51,12 @@ server:
   # Prevents players from dropping items.
   disable-drop: true
 
+  # Prevents players interacting with blocks, items, entities, etc.
+  disable-interact: true
+
+  # Prevents players moving items in their inventory.
+  disable-inventory-click: true
+
   chat:
 
     # If the chat should be handled by BLobby.
@@ -70,6 +76,18 @@ server:
       groups:
         owner: '{prefix}{name}&f: &c{message}'
         default: '{prefix}{name}&f: &7{message}'
+
+
+items:
+  selector:
+    type: SERVER_SELECTOR
+    slot: 4
+    material: COMPASS
+    name: '&6Server Selector &7(Right-Click)'
+  my_cool_item:
+    slot: 0
+    material: EMERALD
+    name: '&6Website: &7www.bradleysteele.me'
 
 
 join:
