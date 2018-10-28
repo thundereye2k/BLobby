@@ -33,8 +33,11 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
@@ -143,6 +146,21 @@ public class WorkerServerController extends BWorker {
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent event) {
         event.setCancelled(isApplicableWithBypass(Config.SERVER_DISABLE_DROP, event.getPlayer()));
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        event.setCancelled(isApplicableWithBypass(Config.SERVER_DISABLE_INTERACT, event.getPlayer()));
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        event.setCancelled(isApplicableWithBypass(Config.SERVER_DISABLE_INVENTORY_CLICK, (Player) event.getWhoClicked()));
+    }
+
+    @EventHandler
+    public void onInventoryDrag(InventoryDragEvent event) {
+        event.setCancelled(isApplicableWithBypass(Config.SERVER_DISABLE_INVENTORY_CLICK, (Player) event.getWhoClicked()));
     }
 
     @EventHandler
