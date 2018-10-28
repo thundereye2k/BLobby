@@ -16,15 +16,22 @@
 
 package me.bradleysteele.lobby.worker;
 
+import me.bradleysteele.commons.itemstack.ItemStacks;
+import me.bradleysteele.commons.itemstack.nbt.NBTItemStack;
 import me.bradleysteele.commons.register.worker.BWorker;
+import me.bradleysteele.commons.resource.ResourceSection;
 import me.bradleysteele.commons.util.Messages;
 import me.bradleysteele.commons.util.Players;
+import me.bradleysteele.lobby.inventory.ItemType;
 import me.bradleysteele.lobby.resource.yml.Config;
 import me.bradleysteele.lobby.resource.yml.Locale;
+import me.bradleysteele.lobby.util.Items;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * @author Bradley Steele
@@ -37,10 +44,27 @@ public class WorkerLobby extends BWorker {
         return instance;
     }
 
+    private final ItemStack[] contents = new ItemStack[36];
+
     @Override
     public void onRegister() {
         if (Config.SPAWN_ON_ENABLE.getAsBoolean()) {
             Players.getOnlinePlayers().forEach(player -> WorkerLocations.get().spawnify(player));
+        }
+
+        ResourceSection items = Config.ITEMS.getAsResourceSection();
+        ResourceSection item;
+
+        for (String key : items.getKeys()) {
+            item = items.getSection(key);
+            ItemStack stack = Items.loadStack(item);
+
+            if (stack == null) {
+                plugin.getConsole().error("Failed to load item &c" + key + "&r: invalid material.");
+                continue;
+            }
+
+            this.contents[item.getInt("slot")] = stack;
         }
     }
 
@@ -67,6 +91,7 @@ public class WorkerLobby extends BWorker {
             }
         }
 
+
         event.setJoinMessage(Messages.colour(Config.JOIN_MESSAGE.getAsString()
                 .replace("{player}", player.getName())));
     }
@@ -75,5 +100,35 @@ public class WorkerLobby extends BWorker {
     public void onPlayerQuit(PlayerQuitEvent event) {
         event.setQuitMessage(Messages.colour(Config.QUIT_MESSAGE.getAsString()
                 .replace("{player}", event.getPlayer().getName())));
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (!event.hasItem()) {
+            return;
+        }
+
+        NBTItemStack nbtItem = ItemStacks.toNBTItemStack(event.getItem());
+
+        if (nbtItem.hasKey(Items.NBT_KEY)) {
+            Player player = event.getPlayer();
+            ItemType type = ItemType.of(nbtItem.getString(Items.NBT_KEY));
+
+            switch (type) {
+                case SERVER_SELECTOR:
+                    //player.openInventory(InvServerSelector.get().getInventory());
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * @return a copy of the lobby inventory contents.
+     */
+    public ItemStack[] getLobbyContents() {
+        return contents.clone();
     }
 }

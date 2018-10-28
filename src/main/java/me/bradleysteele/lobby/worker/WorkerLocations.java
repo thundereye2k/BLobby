@@ -27,6 +27,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * @author Bradley Steele
@@ -63,6 +64,9 @@ public class WorkerLocations extends BWorker {
      * @param player the player to spawnify.
      */
     public void spawnify(Player player) {
+        player.getInventory().setArmorContents(new ItemStack[4]);
+        player.getInventory().setContents(WorkerLobby.get().getLobbyContents());
+
         player.setGameMode(GameMode.ADVENTURE);
         player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
         player.setFireTicks(0);
