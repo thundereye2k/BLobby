@@ -16,11 +16,16 @@
 
 package me.bradleysteele.lobby.inventory;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import me.bradleysteele.commons.inventory.BInventory;
 import me.bradleysteele.commons.itemstack.ItemStackBuilder;
+import me.bradleysteele.commons.itemstack.ItemStacks;
+import me.bradleysteele.commons.itemstack.nbt.NBTItemStack;
 import me.bradleysteele.commons.resource.ResourceSection;
 import me.bradleysteele.commons.util.Messages;
 import me.bradleysteele.commons.util.logging.StaticLog;
+import me.bradleysteele.lobby.BLobby;
 import me.bradleysteele.lobby.resource.ResourceType;
 import me.bradleysteele.lobby.resource.Resources;
 import me.bradleysteele.lobby.util.Items;
@@ -69,6 +74,24 @@ public class InvServerSelector implements BInventory {
     @Override
     public void onClick(InventoryClickEvent event, Player clicker, ItemStack stack) {
         event.setCancelled(true);
+
+        if (event.getCurrentItem() == null) {
+            return;
+        }
+
+        NBTItemStack nbtItem = ItemStacks.toNBTItemStack(stack);
+
+        if (nbtItem.hasKey(Items.NBT_KEY_SERVER)) {
+            String server = nbtItem.getString(Items.NBT_KEY_SERVER);
+
+            if (server != null) {
+                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                out.writeUTF("Connect");
+                out.writeUTF(server);
+
+                clicker.sendPluginMessage(BLobby.getInstance(), "BungeeCord", out.toByteArray());
+            }
+        }
     }
 
     @Override
