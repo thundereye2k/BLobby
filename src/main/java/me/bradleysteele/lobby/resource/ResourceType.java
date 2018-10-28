@@ -26,7 +26,8 @@ public enum ResourceType {
 
     CONFIG("config.yml", Extension.YML),
     LOCALE("locale.yml", Extension.YML),
-    LOCATIONS("locations.yml", Extension.YML);
+    LOCATIONS("locations.yml", Extension.YML),
+    SERVER_SELECTOR("menus/server_selector.yml", Extension.YML);
 
     private final ResourceReference reference;
 

@@ -22,6 +22,7 @@ import me.bradleysteele.commons.register.worker.BWorker;
 import me.bradleysteele.commons.resource.ResourceSection;
 import me.bradleysteele.commons.util.Messages;
 import me.bradleysteele.commons.util.Players;
+import me.bradleysteele.lobby.inventory.InvServerSelector;
 import me.bradleysteele.lobby.inventory.ItemType;
 import me.bradleysteele.lobby.resource.yml.Config;
 import me.bradleysteele.lobby.resource.yml.Locale;
@@ -110,13 +111,13 @@ public class WorkerLobby extends BWorker {
 
         NBTItemStack nbtItem = ItemStacks.toNBTItemStack(event.getItem());
 
-        if (nbtItem.hasKey(Items.NBT_KEY)) {
+        if (nbtItem.hasKey(Items.NBT_KEY_TYPE)) {
             Player player = event.getPlayer();
-            ItemType type = ItemType.of(nbtItem.getString(Items.NBT_KEY));
+            ItemType type = ItemType.of(nbtItem.getString(Items.NBT_KEY_TYPE));
 
             switch (type) {
                 case SERVER_SELECTOR:
-                    //player.openInventory(InvServerSelector.get().getInventory());
+                    player.openInventory(InvServerSelector.get().getInventory());
                     break;
 
                 default:
